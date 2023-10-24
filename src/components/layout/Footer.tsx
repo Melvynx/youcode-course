@@ -5,7 +5,7 @@ import { Typography } from '../ui/typography';
 
 export const Footer = () => {
   return (
-    <footer className="w-full border-t border-card">
+    <footer className="w-full border-t border-border">
       <div className="m-auto w-full max-w-3xl px-2 py-4">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
           <div className="flex flex-row items-center gap-2">
