@@ -9,7 +9,7 @@ import { getAuthSession } from '@/lib/auth';
 import { CourseCard } from '../courses/CourseCard';
 import { getCourses } from '../courses/course.query';
 
-export default async function ExplorerPage() {
+export default async function CoursesPage() {
   const session = await getAuthSession();
 
   if (!session?.user.id) {

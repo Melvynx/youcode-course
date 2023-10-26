@@ -20,7 +20,7 @@ import { Typography } from '@/components/ui/typography';
 import { getRequiredAuthSession } from '@/lib/auth';
 import Link from 'next/link';
 import { CoursePaginationButton } from '../../../../src/features/pagination/PaginationButton';
-import { getAdminCourse } from './course.query';
+import { getAdminCourse } from './admin-course.query';
 
 export default async function CoursePage({
   params,
@@ -32,7 +32,6 @@ export default async function CoursePage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const page = Number(searchParams.page ?? 1);
-  console.log({ page });
 
   const session = await getRequiredAuthSession();
 
