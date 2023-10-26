@@ -23,6 +23,14 @@ export function Header() {
             >
               Explorer
             </Typography>
+            <Typography
+              as={Link}
+              variant="link"
+              href="/courses"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Courses
+            </Typography>
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
