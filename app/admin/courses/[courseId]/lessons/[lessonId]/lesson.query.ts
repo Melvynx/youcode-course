@@ -8,5 +8,12 @@ export const getAdminLesson = async (lessonId: string, userId: string) => {
         creatorId: userId,
       },
     },
+    select: {
+      content: true,
+      id: true,
+      courseId: true,
+      name: true,
+      state: true,
+    },
   });
 };
