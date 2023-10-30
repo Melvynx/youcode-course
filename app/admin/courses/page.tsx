@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import {
   Layout,
+  LayoutActions,
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
 } from '@/components/layout/layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Table,
@@ -34,6 +36,16 @@ export default async function CoursesPage() {
       <LayoutHeader>
         <LayoutTitle>Courses</LayoutTitle>
       </LayoutHeader>
+      <LayoutActions>
+        <Link
+          href="/admin/courses/new"
+          className={buttonVariants({
+            variant: 'secondary',
+          })}
+        >
+          New Course
+        </Link>
+      </LayoutActions>
       <LayoutContent>
         <Card>
           <CardContent className="mt-4">

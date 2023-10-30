@@ -40,7 +40,7 @@ export default async function CoursePage({
   return (
     <Layout>
       <LayoutHeader>
-        <LayoutTitle>Courses</LayoutTitle>
+        <LayoutTitle>Edit course</LayoutTitle>
       </LayoutHeader>
       <LayoutContent>
         <Card className="flex-[2]">

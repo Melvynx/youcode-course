@@ -23,7 +23,7 @@ export const authenticatedAction = createSafeActionClient({
     const user = session?.user;
     const userId = user?.id;
 
-    if (!session) {
+    if (!userId) {
       throw new ServerError('You must be logged in to perform this action');
     }
 
