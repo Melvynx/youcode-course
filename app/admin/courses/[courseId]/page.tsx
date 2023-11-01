@@ -41,7 +41,7 @@ export default async function CoursePage({
   };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const page = Number(searchParams.page ?? 1);
+  const page = Number(searchParams.page ?? 0);
 
   const session = await getRequiredAuthSession();
 
