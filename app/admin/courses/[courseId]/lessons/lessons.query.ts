@@ -25,6 +25,7 @@ export const getCourseLessons = async ({
           name: true,
           state: true,
           courseId: true,
+          rank: true,
         },
       },
     },
