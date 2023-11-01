@@ -1,0 +1,30 @@
+.theme {
+  --accentBase: hsl(var(--primary));
+  --accentBgSubtle: hsl(var(--primary) / 0.9);
+  --accentBg: hsl(var(--primary) / 0.8);
+  --accentBgHover: hsl(var(--accent) / 0.5);
+  --accentBgActive: hsl(var(--primary) / 0.6);
+  --accentLine: hsl(var(--primary) / 0.5);
+  --accentBorder: hsl(var(--primary-foreground));
+  --accentBorderHover: hsl(var(--primary-foreground) / 0.5);
+  --accentSolid: hsl(var(--primary));
+  --accentSolidHover: hsl(var(--primary) / 0.5);
+  --accentText: hsl(var(--primary-foreground));
+  --accentTextContrast: hsl(var(--primary-foreground) / 0.5);
+
+  --baseBase: hsl(var(--background));
+  --baseBgSubtle: hsl(var(--background) / 0.9);
+  --baseBg: hsl(var(--card) / 0.8);
+  --baseBgHover: hsl(var(--card) / 0.9);
+  --baseBgActive: hsl(var(--card) / 0.6);
+  --baseLine: hsl(var(--border));
+  --baseBorder: hsl(var(--border));
+  --baseBorderHover: hsl(var(--border) / 0.5);
+  --baseSolid: hsl(var(--background));
+  --baseSolidHover: hsl(var(--background) / 0.5);
+  --baseText: hsl(var(--foreground));
+  --baseTextContrast: hsl(var(--foreground) / 0.8);
+
+  color: var(--baseText);
+  background: var(--baseBg);
+}

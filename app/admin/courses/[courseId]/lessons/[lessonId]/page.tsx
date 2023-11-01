@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getRequiredAuthSession } from '@/lib/auth';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { MdxEditor } from './content/MdxEditor';
 import { LessonDetail } from './form/LessonDetailsForm';
 import { getAdminLesson } from './lesson.query';
 
@@ -30,7 +31,7 @@ export default async function CourseLessonsPage({
   }
 
   return (
-    <Layout>
+    <Layout className="max-w-5xl">
       <LayoutHeader>
         <LayoutTitle>{lesson.name}</LayoutTitle>
       </LayoutHeader>
@@ -46,12 +47,20 @@ export default async function CourseLessonsPage({
         </Link>
       </LayoutActions>
       <LayoutContent className="flex flex-col gap-4 lg:flex-row">
-        <Card className="flex-[2]">
+        <Card className="flex-1">
           <CardHeader>
             <CardTitle>Details</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <LessonDetail defaultValue={lesson} />
+          </CardContent>
+        </Card>
+        <Card className="flex-[3]">
+          <CardHeader>
+            <CardTitle>Content</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2">
+            <MdxEditor lessonId={lesson.id} markdown={lesson.content} />
           </CardContent>
         </Card>
       </LayoutContent>
