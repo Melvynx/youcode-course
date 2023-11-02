@@ -57,57 +57,52 @@ export const Course = ({ course, userId }: CourseProps) => {
         </Card>
       </div>
       {!course.isCanceled && !course.isEnrolled && isLogin ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form>
-              <SubmitButton
-                formAction={async () => {
-                  'use server';
+        <div>
+          <form>
+            <SubmitButton
+              formAction={async () => {
+                'use server';
 
-                  const session = await getRequiredAuthSession();
+                const session = await getRequiredAuthSession();
 
-                  const courseOnUser = await prisma.courseOnUser.create({
-                    data: {
-                      userId: session.user.id,
-                      courseId: course.id,
-                    },
-                    select: {
-                      course: {
-                        select: {
-                          id: true,
-                          lessons: {
-                            orderBy: {
-                              rank: 'asc',
-                            },
-                            take: 1,
-                            select: {
-                              id: true,
-                            },
+                const courseOnUser = await prisma.courseOnUser.create({
+                  data: {
+                    userId: session.user.id,
+                    courseId: course.id,
+                  },
+                  select: {
+                    course: {
+                      select: {
+                        id: true,
+                        lessons: {
+                          orderBy: {
+                            rank: 'asc',
+                          },
+                          take: 1,
+                          select: {
+                            id: true,
                           },
                         },
                       },
                     },
-                  });
+                  },
+                });
 
-                  const lesson = courseOnUser.course.lessons[0];
+                const lesson = courseOnUser.course.lessons[0];
 
-                  revalidatePath(`/courses/${course.id}`);
+                revalidatePath(`/courses/${course.id}`);
 
-                  if (!lesson) {
-                    return;
-                  }
+                if (!lesson) {
+                  return;
+                }
 
-                  redirect(`/courses/${course.id}/lessons/${lesson.id}`);
-                }}
-              >
-                Join
-              </SubmitButton>
-            </form>
-          </CardContent>
-        </Card>
+                redirect(`/courses/${course.id}/lessons/${lesson.id}`);
+              }}
+            >
+              Join
+            </SubmitButton>
+          </form>
+        </div>
       ) : null}
     </div>
   );
