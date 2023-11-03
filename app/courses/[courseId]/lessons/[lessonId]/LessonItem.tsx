@@ -1,5 +1,5 @@
 import { Typography } from '@/components/ui/typography';
-import { CheckCircle, Circle, CircleDashed } from 'lucide-react';
+import { CheckCircle, Circle, CircleDashed, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { CourseLessonItem } from '../../course.query';
 
@@ -28,6 +28,7 @@ export const LessonItem = ({ lesson }: LessonItemProps) => {
         <Typography variant="small" className="flex-1">
           {lesson.name}
         </Typography>
+        {lesson.state === 'PUBLIC' ? <Globe size={12} className="ml-auto" /> : null}
       </div>
     </Link>
   );

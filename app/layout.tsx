@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren, ReactNode } from 'react';
 import { Providers } from './Providers';
+import './code.css';
 import './globals.css';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
