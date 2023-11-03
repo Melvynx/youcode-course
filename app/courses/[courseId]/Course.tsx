@@ -17,6 +17,7 @@ export type CourseProps = {
 
 export const Course = ({ course, userId }: CourseProps) => {
   const isLogin = Boolean(userId);
+
   return (
     <div className="flex flex-col items-start gap-4">
       <div className="flex w-full flex-col items-start gap-4 lg:flex-row">
@@ -56,6 +57,7 @@ export const Course = ({ course, userId }: CourseProps) => {
           </CardContent>
         </Card>
       </div>
+      {course.isCanceled ? <p>You can't join this course.</p> : null}
       {!course.isCanceled && !course.isEnrolled && isLogin ? (
         <div>
           <form>

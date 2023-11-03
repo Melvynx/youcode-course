@@ -1,17 +1,8 @@
-import {
-  Layout,
-  LayoutContent,
-  LayoutHeader,
-  LayoutTitle,
-} from '@/components/layout/layout';
-import { buttonVariants } from '@/components/ui/button';
-import { getAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { Lesson } from './Lesson';
+import { LessonSkeleton } from './LessonSkeleton';
 import { LessonsNavigation } from './LessonsNavigation';
-import { getLesson } from './lesson.query';
+import { LessonsNavigationSkeleton } from './LessonsNavigationSkeleton';
 
 export default async function LessonPage({
   params,
@@ -21,48 +12,14 @@ export default async function LessonPage({
     courseId: string;
   };
 }) {
-  const session = await getAuthSession();
-  const lesson = await getLesson(params.lessonId, session?.user.id);
-
-  if (!lesson) {
-    notFound();
-  }
-
-  const isAuthorized = await prisma.course.findUnique({
-    where: {
-      id: params.courseId,
-    },
-    select: {
-      users: {
-        where: {
-          userId: session?.user.id ?? '-',
-          canceledAt: null,
-        },
-      },
-    },
-  });
-
-  if (lesson.state !== 'PUBLIC' && !isAuthorized?.users.length) {
-    return (
-      <Layout>
-        <LayoutHeader>
-          <LayoutTitle>
-            You need to be enrolled in this course to view this lesson.
-          </LayoutTitle>
-        </LayoutHeader>
-        <LayoutContent>
-          <Link href={`/courses/${params.courseId}`} className={buttonVariants()}>
-            Join now
-          </Link>
-        </LayoutContent>
-      </Layout>
-    );
-  }
-
   return (
     <div className="flex items-start gap-4 p-4">
-      <LessonsNavigation courseId={params.courseId} />
-      <Lesson lesson={lesson} />
+      <Suspense fallback={<LessonsNavigationSkeleton />}>
+        <LessonsNavigation courseId={params.courseId} />
+      </Suspense>
+      <Suspense fallback={<LessonSkeleton />}>
+        <Lesson {...params} />
+      </Suspense>
     </div>
   );
 }
