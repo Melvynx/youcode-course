@@ -1,11 +1,5 @@
 import { LessonSkeleton } from './LessonSkeleton';
-import { LessonsNavigationSkeleton } from './LessonsNavigationSkeleton';
 
-export default function LessonLoading() {
-  return (
-    <div className="flex items-start gap-4 p-4">
-      <LessonsNavigationSkeleton />
-      <LessonSkeleton />
-    </div>
-  );
+export default function loading() {
+  return <LessonSkeleton />;
 }

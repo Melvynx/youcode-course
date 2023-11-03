@@ -16,7 +16,7 @@ export const getLesson = async (lessonId: string, userId = '-') => {
       state: true,
       users: {
         where: {
-          id: userId,
+          userId: userId,
         },
         select: {
           id: true,
@@ -30,7 +30,10 @@ export const getLesson = async (lessonId: string, userId = '-') => {
     return null;
   }
 
-  return lesson;
+  return {
+    ...lesson,
+    progress: lesson.users[0]?.progress ?? 'NOT_STARTED',
+  };
 };
 
 export type LessonType = NonNullable<Prisma.PromiseReturnType<typeof getLesson>>;

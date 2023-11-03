@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader } from '@/components/ui/loader';
 import { Skeleton } from '@/components/ui/skeleton';
-import { LessonItemPlaceholder } from './lessons/[lessonId]/LessonItemPlaceholder';
+import { LessonItemPlaceholder } from './lessons/LessonItemPlaceholder';
 
 export const CoursePlaceholder = () => {
   return (
