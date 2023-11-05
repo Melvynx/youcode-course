@@ -11,7 +11,7 @@ export default function layout({
   };
 }>) {
   return (
-    <div className="flex items-start gap-4 p-4">
+    <div className="relative flex items-start gap-4 p-4">
       <Suspense fallback={<LessonsNavigationSkeleton />}>
         <LessonsNavigation courseId={params.courseId} />
       </Suspense>

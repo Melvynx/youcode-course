@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getAuthSession } from '@/lib/auth';
 import { getCourse } from '../course.query';
-import { LessonItem } from './LessonItem';
+import LessonNavigationCard from './LessonNavigationCard';
 
 export type LessonsNavigationProps = {
   courseId: string;
@@ -18,16 +17,5 @@ export const LessonsNavigation = async (props: LessonsNavigationProps) => {
     return null;
   }
 
-  return (
-    <Card className="max-w-xs flex-1">
-      <CardHeader>
-        <CardTitle>{course.name}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        {course.lessons.map((lesson) => (
-          <LessonItem lesson={lesson} />
-        ))}
-      </CardContent>
-    </Card>
-  );
+  return <LessonNavigationCard course={course} />;
 };

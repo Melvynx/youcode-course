@@ -4,6 +4,7 @@ import { getAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { MdxProse } from './MdxProse';
+import { OpenLessonNavigationButton } from './OpenLessonNavigationButton';
 import { handleLessonState } from './lesson.action';
 import { getLesson } from './lesson.query';
 
@@ -51,7 +52,8 @@ export default async function LessonPage({
 
   return (
     <Card className="flex-1">
-      <CardHeader>
+      <CardHeader className="flex-row items-center gap-2 space-y-0">
+        <OpenLessonNavigationButton />
         <CardTitle>{lesson.name}</CardTitle>
       </CardHeader>
       <CardContent className="">
