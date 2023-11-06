@@ -30,6 +30,7 @@ export default async function CoursePage({
       image: true,
       name: true,
       presentation: true,
+      state: true,
     },
   });
 

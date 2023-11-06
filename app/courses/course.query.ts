@@ -1,9 +1,17 @@
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
 
-export const getCourses = async (userId?: string) => {
-  return await prisma.course.findMany({
-    where: userId
+const COUNT_BY_PAGE = 10;
+
+export const getCourses = async ({
+  userId,
+  page = 0,
+}: {
+  userId?: string;
+  page?: number;
+}) => {
+  const whereQuery = (
+    userId
       ? {
           users: {
             some: {
@@ -12,7 +20,17 @@ export const getCourses = async (userId?: string) => {
             },
           },
         }
-      : undefined,
+      : {
+          state: 'PUBLISHED',
+        }
+  ) satisfies Prisma.CourseWhereInput;
+
+  const totalCourses = await prisma.course.count({
+    where: whereQuery,
+  });
+
+  const courses = await prisma.course.findMany({
+    where: whereQuery,
     select: {
       name: true,
       image: true,
@@ -25,7 +43,16 @@ export const getCourses = async (userId?: string) => {
         },
       },
     },
+    take: COUNT_BY_PAGE,
+    skip: Math.max(0, page * COUNT_BY_PAGE),
   });
+
+  return {
+    courses,
+    totalCourses: Math.floor(totalCourses / COUNT_BY_PAGE),
+  };
 };
 
-export type CoursesCard = Prisma.PromiseReturnType<typeof getCourses>[number];
+export type CoursesCard = Prisma.PromiseReturnType<
+  typeof getCourses
+>['courses'][number];

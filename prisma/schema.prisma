@@ -67,16 +67,22 @@ model User {
 }
 
 model Course {
-  id           String   @id @default(cuid())
+  id           String      @id @default(cuid())
   name         String
   presentation String // markdown
   image        String
-  createdAt    DateTime @default(now())
+  createdAt    DateTime    @default(now())
   creatorId    String
+  state        CourseState @default(DRAFT)
 
   creator User           @relation(fields: [creatorId], references: [id])
   lessons Lesson[]
   users   CourseOnUser[]
+}
+
+enum CourseState {
+  DRAFT
+  PUBLISHED
 }
 
 model Lesson {

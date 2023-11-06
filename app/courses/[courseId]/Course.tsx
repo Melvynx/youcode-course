@@ -1,10 +1,12 @@
 import { SubmitButton } from '@/components/form/SubmitButton';
+import { Alert, AlertTitle } from '@/components/ui/alert';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Typography } from '@/components/ui/typography';
 import { MarkdownProse } from '@/features/mdx/MarkdownProse';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { AlertTriangle } from 'lucide-react';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { CourseType } from './course.query';
@@ -54,6 +56,14 @@ export const Course = ({ course, userId }: CourseProps) => {
             {course.lessons.map((lesson) => (
               <LessonItem lesson={lesson} key={lesson.id} />
             ))}
+            {course.lessons.length === 0 ? (
+              <Alert>
+                <AlertTriangle />
+                <AlertTitle>
+                  There are no lessons yet. Please come back later.
+                </AlertTitle>
+              </Alert>
+            ) : null}
           </CardContent>
         </Card>
       </div>
@@ -67,30 +77,40 @@ export const Course = ({ course, userId }: CourseProps) => {
 
                 const session = await getRequiredAuthSession();
 
-                const courseOnUser = await prisma.courseOnUser.create({
-                  data: {
-                    userId: session.user.id,
-                    courseId: course.id,
+                const toLinkCourse = await prisma.course.findUnique({
+                  where: {
+                    id: course.id,
+                    state: 'PUBLISHED',
                   },
                   select: {
-                    course: {
+                    id: true,
+                    lessons: {
+                      orderBy: {
+                        rank: 'asc',
+                      },
+                      take: 1,
                       select: {
                         id: true,
-                        lessons: {
-                          orderBy: {
-                            rank: 'asc',
-                          },
-                          take: 1,
-                          select: {
-                            id: true,
-                          },
-                        },
                       },
                     },
                   },
                 });
 
-                const lesson = courseOnUser.course.lessons[0];
+                if (!toLinkCourse) {
+                  return;
+                }
+
+                await prisma.courseOnUser.create({
+                  data: {
+                    userId: session.user.id,
+                    courseId: course.id,
+                  },
+                  select: {
+                    id: true,
+                  },
+                });
+
+                const lesson = toLinkCourse.lessons[0];
 
                 revalidatePath(`/courses/${course.id}`);
 

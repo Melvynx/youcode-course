@@ -170,6 +170,7 @@ export default async function CoursePage({
             <CardTitle>{course.name}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
+            <Badge className="w-fit">{course.state}</Badge>
             <Typography>{course._count?.users} users</Typography>
             <Typography>{course._count?.lessons} lessons</Typography>
             <Link

@@ -76,7 +76,7 @@ export const LessonDetail = ({ defaultValue }: LessonDetailFormProps) => {
         name="state"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Email</FormLabel>
+            <FormLabel>State</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>

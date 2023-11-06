@@ -1,18 +1,10 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { usePathname, useRouter } from 'next/navigation';
 import { PropsWithChildren } from 'react';
-import { CourseType } from '../../../courses/[courseId]/course.query';
 
-export type CourseDialogProps = PropsWithChildren<{
-  course: CourseType;
-}>;
+export type CourseDialogProps = PropsWithChildren;
 
 export const CourseDialog = (props: CourseDialogProps) => {
   const router = useRouter();
@@ -28,9 +20,6 @@ export const CourseDialog = (props: CourseDialogProps) => {
       }}
     >
       <DialogContent className="max-h-screen max-w-3xl overflow-auto">
-        <DialogHeader>
-          <DialogTitle>{props.course.name}</DialogTitle>
-        </DialogHeader>
         {props.children}
       </DialogContent>
     </Dialog>
