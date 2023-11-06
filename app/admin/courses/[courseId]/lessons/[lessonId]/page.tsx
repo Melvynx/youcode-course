@@ -47,7 +47,7 @@ export default async function CourseLessonsPage({
         </Link>
       </LayoutActions>
       <LayoutContent className="flex flex-col gap-4 lg:flex-row">
-        <Card className="flex-1">
+        <Card className="w-full flex-1">
           <CardHeader>
             <CardTitle>Details</CardTitle>
           </CardHeader>
@@ -55,7 +55,7 @@ export default async function CourseLessonsPage({
             <LessonDetail defaultValue={lesson} />
           </CardContent>
         </Card>
-        <Card className="flex-[3]">
+        <Card className="max-w-full flex-[3] overflow-auto">
           <CardHeader>
             <CardTitle>Content</CardTitle>
           </CardHeader>
