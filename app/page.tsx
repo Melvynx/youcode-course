@@ -83,7 +83,7 @@ export default function Home() {
           <iframe
             width="560"
             height="315"
-            src="https://www.youtube-nocookie.com/embed/taw7AYTN0ds?si=i6Fy0ojXwEQnyBtz&amp;controls=0"
+            src="https://www.youtube-nocookie.com/embed/TsVFEtj_Jrw?si=CfbBjfbkhG6i210d"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           ></iframe>
