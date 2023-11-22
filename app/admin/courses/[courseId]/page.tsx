@@ -111,6 +111,8 @@ export default async function CoursePage({
 
                                   const session = await getRequiredAuthSession();
 
+                                  // Je suis ici
+
                                   const courseId = params.courseId;
                                   const userId = user.id;
 

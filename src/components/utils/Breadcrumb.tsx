@@ -21,19 +21,12 @@ export const Breadcrumb = () => {
         className="text-skin-secondary flex items-center gap-1 text-sm"
       >
         {pathname.map((item, index) => (
-          <Fragment key={item}>
-            <li>
-              <Link
-                href={`/${pathname.slice(0, index + 1).join('/')}`}
-                className="block text-xs text-muted-foreground transition hover:text-foreground"
-              >
-                {item}
-              </Link>
-            </li>
-            {index !== pathname.length - 1 && (
-              <ChevronRight className="text-muted-foreground" size={16} />
-            )}
-          </Fragment>
+          <BreadcrumbItem
+            item={item}
+            index={index}
+            pathname={pathname}
+            isPrismaId={isPrismaId}
+          />
         ))}
       </ol>
     </nav>
@@ -46,6 +39,39 @@ const isPrismaId = (id: string): boolean => {
   return regex.test(id);
 };
 
-export const formatId = (id: string) => {
+const formatId = (id: string): string => {
+  if (id.length <= 4) {
+    return id;
+  }
   return `${id.slice(0, 2)}...${id.slice(-2)}`;
+};
+
+interface BreadcrumbItemProps {
+  item: string;
+  index: number;
+  pathname: string[];
+  isPrismaId: (id: string) => boolean;
+}
+
+const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
+  item,
+  index,
+  pathname,
+  isPrismaId,
+}) => {
+  return (
+    <Fragment key={item}>
+      <li>
+        <Link
+          href={`/${pathname.slice(0, index + 1).join('/')}`}
+          className="block text-xs text-muted-foreground transition hover:text-foreground"
+        >
+          {isPrismaId(item) ? formatId(item) : item}
+        </Link>
+      </li>
+      {index !== pathname.length - 1 && (
+        <ChevronRight className="text-muted-foreground" size={16} />
+      )}
+    </Fragment>
+  );
 };

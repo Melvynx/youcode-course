@@ -4,7 +4,7 @@ import { Typography } from '@/components/ui/typography';
 import Link from 'next/link';
 import { CoursesCard } from './course.query';
 
-export type CourseCardProps = {
+type CourseCardProps = {
   course: CoursesCard;
 };
 
@@ -14,7 +14,10 @@ export const CourseCard = (props: CourseCardProps) => {
       <Card className="hover:bg-accent">
         <CardHeader className="flex flex-row gap-3 space-y-0">
           <Avatar className="h-14 w-14 rounded">
-            <AvatarFallback>{props.course.name[0]}</AvatarFallback>
+            <AvatarFallback>
+              {props.course.name.charAt(0) +
+                props.course.name.charAt(props.course.name.length - 1)}
+            </AvatarFallback>
             {props.course.image ? <AvatarImage src={props.course.image} /> : null}
           </Avatar>
           <div className="flex flex-col gap-3">

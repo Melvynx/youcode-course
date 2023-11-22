@@ -7,6 +7,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { buttonVariants } from '@/components/ui/button';
 import { Typography } from '@/components/ui/typography';
+import { prisma } from '@/lib/prisma';
 import { cn } from '@/lib/utils';
 import { CircleDollarSign, PencilLine, Rocket, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -45,7 +46,17 @@ const FAQValues = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  await prisma.course.findMany({
+    include: {
+      lessons: {
+        include: {
+          users: true,
+        },
+      },
+    },
+  });
+
   return (
     <div>
       {/* HERO */}
