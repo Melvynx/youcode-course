@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Card, CardHeader } from '@/components/ui/card';
-import { Loader } from '@/components/ui/loader';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Card, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
+import { Loader } from "lucide-react";
 
 export const CourseCardSkeleton = () => {
   return (

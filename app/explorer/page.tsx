@@ -3,12 +3,12 @@ import {
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
-} from '@/components/layout/layout';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { CoursePaginationButton } from '@/features/pagination/PaginationButton';
-import { AlertTriangle } from 'lucide-react';
-import { CourseCard } from '../courses/CourseCard';
-import { getCourses } from '../courses/course.query';
+} from "@/components/layout/layout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CoursePaginationButton } from "@/features/pagination/PaginationButton";
+import { AlertTriangle } from "lucide-react";
+import { CourseCard } from "../courses/CourseCard";
+import { getCourses } from "../courses/course.query";
 
 export default async function ExplorerPage({
   searchParams,

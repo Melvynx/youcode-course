@@ -1,5 +1,5 @@
-import { createSafeActionClient } from 'next-safe-action';
-import { getAuthSession } from './auth';
+import { getAuthSession } from "./auth";
+import { createSafeActionClient } from "next-safe-action";
 
 export const action = createSafeActionClient();
 
@@ -14,7 +14,7 @@ export const authenticatedAction = createSafeActionClient({
     }
 
     return {
-      serverError: 'An unexpected error occurred',
+      serverError: "An unexpected error occurred",
     };
   },
   middleware: async () => {
@@ -24,7 +24,7 @@ export const authenticatedAction = createSafeActionClient({
     const userId = user?.id;
 
     if (!userId) {
-      throw new ServerError('You must be logged in to perform this action');
+      throw new ServerError("You must be logged in to perform this action");
     }
 
     return {

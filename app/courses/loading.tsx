@@ -3,8 +3,8 @@ import {
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
-} from '@/components/layout/layout';
-import { CourseCardSkeleton } from '../courses/CourseCardSkeleton';
+} from "@/components/layout/layout";
+import { CourseCardSkeleton } from "../courses/CourseCardSkeleton";
 
 export default async function LoadingPage() {
   return (

@@ -13,7 +13,7 @@ export default async function LoadingPage() {
         <LayoutTitle>Explorer</LayoutTitle>
       </LayoutHeader>
       <LayoutContent className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 10 }).map((_, i) => (
           <CourseCardSkeleton key={i} />
         ))}
       </LayoutContent>
