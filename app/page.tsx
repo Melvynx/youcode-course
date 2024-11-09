@@ -3,46 +3,46 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { buttonVariants } from '@/components/ui/button';
-import { Typography } from '@/components/ui/typography';
-import { prisma } from '@/lib/prisma';
-import { cn } from '@/lib/utils';
-import { CircleDollarSign, PencilLine, Rocket, Star } from 'lucide-react';
-import Link from 'next/link';
+} from "@/components/ui/accordion";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { buttonVariants } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { prisma } from "@/lib/prisma";
+import { cn } from "@/lib/utils";
+import { CircleDollarSign, PencilLine, Rocket, Star } from "lucide-react";
+import Link from "next/link";
 
 const FAQValues = [
   {
-    question: 'What are the limits for course creation on YouCode?',
+    question: "What are the limits for course creation on YouCode?",
     answer:
-      'With YouCode, the only limits are your creativity and the content you are legally allowed to share. There are no restrictions on the number of courses or lessons you can create.',
+      "With YouCode, the only limits are your creativity and the content you are legally allowed to share. There are no restrictions on the number of courses or lessons you can create.",
   },
   {
-    question: 'Can I integrate quizzes or exercises into my YouCode courses?',
+    question: "Can I integrate quizzes or exercises into my YouCode courses?",
     answer:
-      'Absolutely! YouCode supports the integration of various types of interactive activities like quizzes, coding exercises, and more.',
+      "Absolutely! YouCode supports the integration of various types of interactive activities like quizzes, coding exercises, and more.",
   },
   {
-    question: 'How does YouCode ensure the quality of the courses offered?',
+    question: "How does YouCode ensure the quality of the courses offered?",
     answer:
-      'We have a dedicated team for quality assurance of courses. Moreover, the YouCode community can leave reviews and report inappropriate content.',
+      "We have a dedicated team for quality assurance of courses. Moreover, the YouCode community can leave reviews and report inappropriate content.",
   },
   {
-    question: 'Does YouCode offer tracking tools for course creators?',
+    question: "Does YouCode offer tracking tools for course creators?",
     answer:
       "Yes, we provide detailed analytics so you can monitor your students' progress and engagement with your courses.",
   },
   {
-    question: 'Can I customize the appearance of my courses on YouCode?',
+    question: "Can I customize the appearance of my courses on YouCode?",
     answer:
-      'Yes, YouCode offers customization options so you can align the look of your courses with your brand or personal preferences.',
+      "Yes, YouCode offers customization options so you can align the look of your courses with your brand or personal preferences.",
   },
   {
     question:
-      'What support does YouCode provide to content creators in case of issues?',
+      "What support does YouCode provide to content creators in case of issues?",
     answer:
-      'We have a responsive support team that can be contacted directly via our platform for any technical issues or questions.',
+      "We have a responsive support team that can be contacted directly via our platform for any technical issues or questions.",
   },
 ];
 
@@ -66,8 +66,8 @@ export default async function Home() {
             Create courses in seconds
           </h1>
           <h2 className="text-2xl font-bold">
-            YouCode is the YouTube of education. You will create online courses in
-            seconds.
+            YouCode is the YouTube of education. You will create online courses
+            in seconds.
           </h2>
           <div className="flex items-center gap-8">
             <div className="flex">
@@ -107,8 +107,8 @@ export default async function Home() {
             <PencilLine size={32} />
             <Typography variant="h3">MDX Based</Typography>
             <Typography variant="large">
-              YouCode is based on MDX. You can write your courses in Markdown and
-              React.
+              YouCode is based on MDX. You can write your courses in Markdown
+              and React.
             </Typography>
           </div>
           <div className="flex flex-1 flex-col items-center gap-2 text-center">
@@ -122,7 +122,7 @@ export default async function Home() {
             <Rocket size={32} />
             <Typography variant="h3">NextReact project</Typography>
             <Typography variant="large">
-              Re-build this app from scratch in{' '}
+              Re-build this app from scratch in{" "}
               <Link
                 href="https://codelynx.dev/nextreact/courses"
                 className="underline"
@@ -140,7 +140,7 @@ export default async function Home() {
         </h2>
         <Link
           href="/admin/courses/new"
-          className={cn(buttonVariants(), 'px-6 py-8 text-xl font-bold')}
+          className={cn(buttonVariants(), "px-6 py-8 text-xl font-bold")}
         >
           BUILD YOUR FIRST COURSE
         </Link>
@@ -150,7 +150,7 @@ export default async function Home() {
         className="bg-secondary py-8 text-secondary-foreground xl:py-16"
         style={{
           // @ts-ignore
-          '--border': '240 3.7% 25%',
+          "--border": "240 3.7% 25%",
         }}
       >
         <div className="m-auto flex max-w-5xl flex-col gap-3 px-6 xl:gap-6">
@@ -172,9 +172,17 @@ export default async function Home() {
         </h2>
         <Link
           href="/admin/courses/new"
-          className={cn(buttonVariants(), 'px-6 py-8 text-xl font-bold')}
+          className={cn(buttonVariants(), "px-6 py-8 text-xl font-bold")}
         >
           BUILD YOUR FIRST COURSE
+        </Link>
+      </div>
+      <div className="my-8 flex flex-col items-center gap-4 lg:my-16 xl:my-24">
+        <Link
+          href="https://codelynx.dev/nextreact/courses"
+          className="text-xl font-bold underline"
+        >
+          Clique ici pour suivre une Formation NextJS gratuite et de qualité 🚀
         </Link>
       </div>
     </div>

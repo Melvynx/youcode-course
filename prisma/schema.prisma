@@ -41,6 +41,21 @@ model Session {
   @@map("sessions")
 }
 
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String?        @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  Course        Course[]
+  LessonOnUser  LessonOnUser[]
+  CourseOnUser  CourseOnUser[]
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -48,22 +63,6 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  accounts       Account[]
-  sessions       Session[]
-  ownedCourses   CourseOnUser[]
-  createdCourses Course[]
-  lessons        LessonOnUser[]
 }
 
 model Course {
