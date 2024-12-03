@@ -10,7 +10,7 @@ export const CoursePlaceholder = () => {
       <div className="flex w-full flex-col items-start gap-4 lg:flex-row">
         <Card className="flex-[2] hover:bg-accent">
           <CardHeader className="flex flex-row gap-3 space-y-0">
-            <Avatar className="h-14 w-14 rounded">
+            <Avatar className="size-14 rounded">
               <AvatarFallback>
                 <Loader size={24} />
               </AvatarFallback>
@@ -18,7 +18,7 @@ export const CoursePlaceholder = () => {
             <div className="flex flex-col gap-3">
               <Skeleton className="h-5 w-56" />
               <div className="flex flex-row gap-2">
-                <Avatar className="h-8 w-8">
+                <Avatar className="size-8">
                   <AvatarFallback>
                     <Loader size={16} />
                   </AvatarFallback>

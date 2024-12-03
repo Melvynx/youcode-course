@@ -20,11 +20,12 @@ const FormSchema = z.object({
   image: z.string().url(),
 });
 
-export default async function SettingsPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function SettingsPage(
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const session = await getRequiredAuthSession();
 
   return (

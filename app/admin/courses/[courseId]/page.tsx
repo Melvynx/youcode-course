@@ -1,20 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
 import {
   Layout,
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
-} from '@/components/layout/layout';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+} from "@/components/layout/layout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -22,25 +21,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Typography } from '@/components/ui/typography';
-import { getRequiredAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import { Menu } from 'lucide-react';
-import { revalidatePath } from 'next/cache';
-import Link from 'next/link';
-import { CoursePaginationButton } from '../../../../src/features/pagination/PaginationButton';
-import { getAdminCourse } from './admin-course.query';
+} from "@/components/ui/table";
+import { Typography } from "@/components/ui/typography";
+import { getRequiredAuthSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { Menu } from "lucide-react";
+import { revalidatePath } from "next/cache";
+import Link from "next/link";
+import { CoursePaginationButton } from "../../../../src/features/pagination/PaginationButton";
+import { getAdminCourse } from "./admin-course.query";
 
-export default async function CoursePage({
-  params,
-  searchParams,
-}: {
-  params: {
+export default async function CoursePage(props: {
+  params: Promise<{
     courseId: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const page = Number(searchParams.page ?? 0);
 
   const session = await getRequiredAuthSession();
@@ -71,12 +69,15 @@ export default async function CoursePage({
               </TableHeader>
               <TableBody>
                 {course.users?.map((user) => (
-                  <TableRow>
+                  <TableRow key={user.id}>
                     <TableCell>
                       <Avatar className="rounded">
                         <AvatarFallback>{user.email?.[0]}</AvatarFallback>
                         {user.image && (
-                          <AvatarImage src={user.image} alt={user.email ?? ''} />
+                          <AvatarImage
+                            src={user.image}
+                            alt={user.email ?? ""}
+                          />
                         )}
                       </Avatar>
                     </TableCell>
@@ -92,7 +93,7 @@ export default async function CoursePage({
 
                     <TableCell>
                       <Badge variant="secondary">
-                        {user.canceled ? 'Canceled' : 'Active'}
+                        {user.canceled ? "Canceled" : "Active"}
                       </Badge>
                     </TableCell>
                     <TableCell className="flex flex-row-reverse">
@@ -107,9 +108,10 @@ export default async function CoursePage({
                             <form>
                               <button
                                 formAction={async () => {
-                                  'use server';
+                                  "use server";
 
-                                  const session = await getRequiredAuthSession();
+                                  const session =
+                                    await getRequiredAuthSession();
 
                                   // Je suis ici
 
@@ -122,7 +124,7 @@ export default async function CoursePage({
                                         userId,
                                         course: {
                                           id: courseId,
-                                          creatorId: session?.user.id,
+                                          creatorId: session.user.id,
                                         },
                                       },
                                     });
@@ -143,7 +145,7 @@ export default async function CoursePage({
                                   revalidatePath(`/admin/courses/${courseId}`);
                                 }}
                               >
-                                {user.canceled ? 'Activate' : 'Cancel'}
+                                {user.canceled ? "Activate" : "Cancel"}
                               </button>
                             </form>
                           </DropdownMenuItem>
@@ -166,7 +168,7 @@ export default async function CoursePage({
             <Avatar className="rounded">
               <AvatarFallback>{course.name?.[0]}</AvatarFallback>
               {course.image && (
-                <AvatarImage src={course.image} alt={course.name ?? ''} />
+                <AvatarImage src={course.image} alt={course.name ?? ""} />
               )}
             </Avatar>
             <CardTitle>{course.name}</CardTitle>
@@ -178,15 +180,15 @@ export default async function CoursePage({
             <Link
               href={`/admin/courses/${course.id}/edit`}
               className={buttonVariants({
-                variant: 'outline',
+                variant: "outline",
               })}
             >
               Edit
-            </Link>{' '}
+            </Link>{" "}
             <Link
               href={`/admin/courses/${course.id}/lessons`}
               className={buttonVariants({
-                variant: 'outline',
+                variant: "outline",
               })}
             >
               Edit lessons

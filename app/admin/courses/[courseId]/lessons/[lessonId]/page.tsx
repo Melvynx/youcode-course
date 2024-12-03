@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import {
   Layout,
   LayoutActions,
@@ -15,13 +15,14 @@ import { MdxEditor } from './content/MdxEditor';
 import { LessonDetail } from './form/LessonDetailsForm';
 import { getAdminLesson } from './lesson.query';
 
-export default async function CourseLessonsPage({
-  params,
-}: {
-  params: {
-    lessonId: string;
-  };
-}) {
+export default async function CourseLessonsPage(
+  props: {
+    params: Promise<{
+      lessonId: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const session = await getRequiredAuthSession();
 
   const lesson = await getAdminLesson(params.lessonId, session.user.id);

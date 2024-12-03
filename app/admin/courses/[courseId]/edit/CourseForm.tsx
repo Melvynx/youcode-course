@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,21 +10,22 @@ import {
   FormLabel,
   FormMessage,
   useZodForm,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { courseActionCreate, courseActionEdit } from './course.action';
-import { COURSE_STATE, CourseFormSchema } from './course.schema';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { isActionSuccessful } from "@/lib/safe-actions.utils";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { courseCreateAction, courseEditAction } from "./course.action";
+import { COURSE_STATE, CourseFormSchema } from "./course.schema";
 
 export type CourseFormProps = {
   defaultValue?: CourseFormSchema & {
@@ -44,22 +45,22 @@ export const CourseForm = ({ defaultValue }: CourseFormProps) => {
       form={form}
       className="flex flex-col gap-4"
       onSubmit={async (values) => {
-        const { data, serverError } = defaultValue?.id
-          ? await courseActionEdit({
+        const result = defaultValue?.id
+          ? await courseEditAction({
               courseId: defaultValue.id,
               data: values,
             })
-          : await courseActionCreate(values);
+          : await courseCreateAction(values);
 
-        if (data) {
-          toast.success(data.message);
-          router.push(`/admin/courses/${data.course.id}`);
+        if (isActionSuccessful(result)) {
+          toast.success(result.data.message);
+          router.push(`/admin/courses/${result.data.course.id}`);
           router.refresh();
           return;
         }
 
-        toast.error('Some error occurred', {
-          description: serverError,
+        toast.error("Some error occurred", {
+          description: result?.serverError ?? "Unknown error",
         });
         return;
       }}
@@ -74,7 +75,7 @@ export const CourseForm = ({ defaultValue }: CourseFormProps) => {
               <Input placeholder="https://googleimage.com" {...field} />
             </FormControl>
             <FormDescription>
-              Host and use an image. You can use{' '}
+              Host and use an image. You can use{" "}
               <Link href="https://imgur.com">Imgur</Link> to host your image.
             </FormDescription>
             <FormMessage />
@@ -123,7 +124,7 @@ export const CourseForm = ({ defaultValue }: CourseFormProps) => {
               </FormControl>
               <SelectContent>
                 {COURSE_STATE.map((state) => (
-                  <SelectItem value={state} className="capitalize">
+                  <SelectItem key={state} value={state} className="capitalize">
                     {state}
                   </SelectItem>
                 ))}

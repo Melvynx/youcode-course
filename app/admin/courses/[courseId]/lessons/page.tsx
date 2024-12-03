@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import { SubmitButton } from '@/components/form/SubmitButton';
 import {
   Layout,
@@ -13,13 +13,14 @@ import { notFound, redirect } from 'next/navigation';
 import { AdminLessonSortable } from './AdminLessonSortable';
 import { getCourseLessons } from './lessons.query';
 
-export default async function CourseLessonsPage({
-  params,
-}: {
-  params: {
-    courseId: string;
-  };
-}) {
+export default async function CourseLessonsPage(
+  props: {
+    params: Promise<{
+      courseId: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const session = await getRequiredAuthSession();
 
   const course = await getCourseLessons({

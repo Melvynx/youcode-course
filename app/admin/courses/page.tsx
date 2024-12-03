@@ -1,14 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 import {
   Layout,
   LayoutActions,
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
-} from '@/components/layout/layout';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { buttonVariants } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+} from "@/components/layout/layout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -16,11 +15,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Typography } from '@/components/ui/typography';
-import { getRequiredAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
+} from "@/components/ui/table";
+import { Typography } from "@/components/ui/typography";
+import { getRequiredAuthSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function CoursesPage() {
   const session = await getRequiredAuthSession();
@@ -40,7 +39,7 @@ export default async function CoursesPage() {
         <Link
           href="/admin/courses/new"
           className={buttonVariants({
-            variant: 'secondary',
+            variant: "secondary",
           })}
         >
           New Course
@@ -56,7 +55,7 @@ export default async function CoursesPage() {
               </TableHeader>
               <TableBody>
                 {courses.map((course) => (
-                  <TableRow>
+                  <TableRow key={course.id}>
                     <TableCell>
                       <Avatar className="rounded">
                         <AvatarFallback>{course.name[0]}</AvatarFallback>

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import {
   Layout,
   LayoutContent,

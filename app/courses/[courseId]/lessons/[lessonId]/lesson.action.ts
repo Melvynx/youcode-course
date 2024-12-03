@@ -1,17 +1,19 @@
-'use server';
+"use server";
 
-import { authenticatedAction } from '@/lib/action';
-import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
+import { authenticatedAction } from "@/lib/action";
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
-export const handleLessonState = authenticatedAction(
-  z.object({
-    lessonId: z.string(),
-    progress: z.enum(['COMPLETED', 'IN_PROGRESS']),
-  }),
-  async ({ lessonId, progress }, { userId }) => {
+export const lessonUpdateLessonStateAction = authenticatedAction
+  .schema(
+    z.object({
+      lessonId: z.string(),
+      progress: z.enum(["COMPLETED", "IN_PROGRESS"]),
+    })
+  )
+  .action(async ({ parsedInput: { lessonId, progress }, ctx: { userId } }) => {
     const updatedLessonOnUser = await prisma.lessonOnUser.update({
       where: {
         userId_lessonId: {
@@ -40,11 +42,11 @@ export const handleLessonState = authenticatedAction(
           gt: updatedLessonOnUser.lesson.rank,
         },
         state: {
-          not: 'HIDDEN',
+          not: "HIDDEN",
         },
       },
       orderBy: {
-        rank: 'asc',
+        rank: "asc",
       },
     });
 
@@ -59,5 +61,4 @@ export const handleLessonState = authenticatedAction(
     redirect(
       `/courses/${updatedLessonOnUser.lesson.courseId}/lessons/${nextLesson.id}`
     );
-  }
-);
+  });

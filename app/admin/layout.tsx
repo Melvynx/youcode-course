@@ -1,6 +1,6 @@
 import { BackButton } from '@/components/utils/BackButton';
 import { Breadcrumb } from '@/components/utils/Breadcrumb';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export default function AdminLayout({ children }: PropsWithChildren) {
   return (

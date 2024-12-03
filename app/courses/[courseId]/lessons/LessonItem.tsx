@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { CheckCircle, Circle, CircleDashed, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { CourseLessonItem } from '../course.query';
+import type { CourseLessonItem } from '../course.query';
 
 export type LessonItemProps = {
   lesson: CourseLessonItem;
@@ -27,7 +27,7 @@ export const LessonItem = ({ lesson }: LessonItemProps) => {
   const Icon = getLessonIcon(lesson.progress);
   const params = useParams();
 
-  const lessonId = String(params?.lessonId);
+  const lessonId = String(params.lessonId);
 
   const isCurrentLesson = lessonId === lesson.id;
   return (

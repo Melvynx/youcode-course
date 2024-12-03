@@ -1,4 +1,4 @@
-'use client'; // Error components must be Client Components
+"use client"; // Error components must be Client Components
 
 import {
   Card,
@@ -6,16 +6,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { LoginButton } from '@/features/auth/LoginButton';
-import { useEffect } from 'react';
+} from "@/components/ui/card";
+import { LoginButton } from "@/features/auth/LoginButton";
+import { useEffect } from "react";
 
 export default function Error({
   error,
-  reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
 }) {
   useEffect(() => {
     // Log the error to an error reporting service

@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/typography';
 import Link from 'next/link';
-import { AdminLessonItemType } from './lessons.query';
+import type { AdminLessonItemType } from './lessons.query';
 
 import { Button } from '@/components/ui/button';
 import { useSortable } from '@dnd-kit/sortable';

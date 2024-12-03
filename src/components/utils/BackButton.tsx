@@ -1,7 +1,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Button, ButtonProps } from '../ui/button';
+import type { ButtonProps } from '../ui/button';
+import { Button } from '../ui/button';
 
 export const BackButton = (props: ButtonProps) => {
   const router = useRouter();
@@ -10,7 +11,7 @@ export const BackButton = (props: ButtonProps) => {
       {...props}
       onClick={(e) => {
         router.back();
-        props?.onClick?.(e);
+        props.onClick?.(e);
       }}
     />
   );

@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+ 
 import {
   Layout,
   LayoutContent,
@@ -11,13 +11,14 @@ import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { CourseForm } from './CourseForm';
 
-export default async function CoursePage({
-  params,
-}: {
-  params: {
-    courseId: string;
-  };
-}) {
+export default async function CoursePage(
+  props: {
+    params: Promise<{
+      courseId: string;
+    }>;
+  }
+) {
+  const params = await props.params;
   const session = await getRequiredAuthSession();
 
   const course = await prisma.course.findUnique({

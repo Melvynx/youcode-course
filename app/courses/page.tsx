@@ -3,27 +3,26 @@ import {
   LayoutContent,
   LayoutHeader,
   LayoutTitle,
-} from '@/components/layout/layout';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { NotAuthenticatedCard } from '@/features/errors/NotAuthentificatedCard';
-import { CoursePaginationButton } from '@/features/pagination/PaginationButton';
-import { getAuthSession } from '@/lib/auth';
-import { AlertTriangle } from 'lucide-react';
-import { CourseCard } from '../courses/CourseCard';
-import { getCourses } from '../courses/course.query';
+} from "@/components/layout/layout";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { NotAuthenticatedCard } from "@/features/errors/NotAuthentificatedCard";
+import { CoursePaginationButton } from "@/features/pagination/PaginationButton";
+import { getAuthSession } from "@/lib/auth";
+import { AlertTriangle } from "lucide-react";
+import { CourseCard } from "../courses/CourseCard";
+import { getCourses } from "../courses/course.query";
 
-export default async function CoursesPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function CoursesPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
+  const searchParams = await props.searchParams;
   const session = await getAuthSession();
 
-  if (!session?.user.id) {
+  if (!session?.user?.id) {
     return <NotAuthenticatedCard />;
   }
 
-  const page = Number(searchParams.page ?? 0) ?? 0;
+  const page = Number(searchParams.page ?? 0);
   const { courses, totalCourses } = await getCourses({
     userId: session.user.id,
     page,
