@@ -1,6 +1,6 @@
-import { getRequiredAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import { NewUserCharts } from './NewUserCharts';
+import { getRequiredAuthSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { NewUserCharts } from "./NewUserCharts";
 
 export const NewUsersStats = async () => {
   const session = await getRequiredAuthSession();
@@ -48,8 +48,6 @@ export const NewUsersStats = async () => {
       canceledUsersCount,
     };
   }).reverse();
-
-  console.log({ data, newUsers });
 
   return <NewUserCharts data={data} />;
 };

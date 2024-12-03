@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Typography } from '@/components/ui/typography';
 import Link from 'next/link';
-import { CoursesCard } from './course.query';
+import type { CoursesCard } from './course.query';
 
 type CourseCardProps = {
   course: CoursesCard;
@@ -13,7 +13,7 @@ export const CourseCard = (props: CourseCardProps) => {
     <Link href={`/courses/${props.course.id}`}>
       <Card className="hover:bg-accent">
         <CardHeader className="flex flex-row gap-3 space-y-0">
-          <Avatar className="h-14 w-14 rounded">
+          <Avatar className="size-14 rounded">
             <AvatarFallback>
               {props.course.name.charAt(0) +
                 props.course.name.charAt(props.course.name.length - 1)}
@@ -23,7 +23,7 @@ export const CourseCard = (props: CourseCardProps) => {
           <div className="flex flex-col gap-3">
             <CardTitle>{props.course.name}</CardTitle>
             <div className="flex flex-row gap-2">
-              <Avatar className="h-8 w-8">
+              <Avatar className="size-8">
                 <AvatarFallback>{props.course.name[0]}</AvatarFallback>
                 {props.course.creator.image ? (
                   <AvatarImage src={props.course.creator.image} />

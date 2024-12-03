@@ -1,5 +1,5 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import rehypePrism from 'rehype-prism-plus';
+import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypePrism from "rehype-prism-plus";
 
 export type MdxProseProps = {
   markdown: string;
@@ -11,7 +11,6 @@ export const MdxProse = (props: MdxProseProps) => {
       <MDXRemote
         options={{
           mdxOptions: {
-            // @ts-expect-error
             rehypePlugins: [rehypePrism],
           },
         }}

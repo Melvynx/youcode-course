@@ -4,7 +4,7 @@ declare module 'next-auth' {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
-  interface Session {
+  type Session = {
     user: DefaultSession['user'] & {
       /** The user's id address. */
       id?: string;

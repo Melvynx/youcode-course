@@ -1,28 +1,29 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
+import { isActionSuccessful } from "@/lib/safe-actions.utils";
+import { cn } from "@/lib/utils";
+import type { DragEndEvent } from "@dnd-kit/core";
 import {
   DndContext,
-  DragEndEvent,
   KeyboardSensor,
   PointerSensor,
   closestCenter,
   useSensor,
   useSensors,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { AdminLessonItemSortable } from './AdminLessonItem';
-import { saveLessonMove } from './lessons.action';
-import { AdminLessonItemType } from './lessons.query';
+} from "@dnd-kit/sortable";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { AdminLessonItemSortable } from "./AdminLessonItem";
+import { saveLessonMoveAction } from "./lessons.action";
+import type { AdminLessonItemType } from "./lessons.query";
 
 type AdminLessonSortableProps = {
   items: AdminLessonItemType[];
@@ -50,18 +51,16 @@ export const AdminLessonSortable = ({
       newUpItem: string | undefined;
       newDownItem: string | undefined;
     }) => {
-      const { serverError, data } = await saveLessonMove({
+      const result = await saveLessonMoveAction({
         upItemRank: newUpItem,
         downItemRank: newDownItem,
         lessonId: activeId,
       });
 
-      if (serverError) {
-        toast.error(serverError);
+      if (!isActionSuccessful(result)) {
+        toast.error(result?.serverError ?? "Something went wrong");
         return;
       }
-
-      if (!data) return;
 
       router.refresh();
 
@@ -69,7 +68,7 @@ export const AdminLessonSortable = ({
         const activeItem = prevItems.find((item) => item.id === activeId);
         if (!activeItem) return prevItems;
 
-        activeItem.rank = data;
+        activeItem.rank = result.data;
 
         return [...prevItems];
       });
@@ -80,7 +79,7 @@ export const AdminLessonSortable = ({
     const { active, over } = event;
 
     if (!over) {
-      toast.error('Something went wrong');
+      toast.error("Something went wrong");
       return;
     }
 
@@ -90,8 +89,6 @@ export const AdminLessonSortable = ({
         const newIndex = items.findIndex((item) => item.id === over.id);
 
         const newItems = arrayMove(items, oldIndex, newIndex);
-
-        console.log({ newIndex, newItems });
 
         const newUpItem = newItems[newIndex - 1]?.rank;
         const newDownItem = newItems[newIndex + 1]?.rank;
@@ -119,12 +116,16 @@ export const AdminLessonSortable = ({
         strategy={verticalListSortingStrategy}
       >
         <div
-          className={cn('flex flex-col gap-2', {
-            'opacity-50': mutation.isPending,
+          className={cn("flex flex-col gap-2", {
+            "opacity-50": mutation.isPending,
           })}
         >
           {items.map((lesson, index) => (
-            <AdminLessonItemSortable index={index} key={lesson.id} lesson={lesson} />
+            <AdminLessonItemSortable
+              index={index}
+              key={lesson.id}
+              lesson={lesson}
+            />
           ))}
         </div>
       </SortableContext>

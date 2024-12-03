@@ -1,35 +1,46 @@
-import { getAuthSession } from "./auth";
 import { createSafeActionClient } from "next-safe-action";
+import { getAuthSession } from "./auth";
 
-export const action = createSafeActionClient();
+/**
+ * ActionError message will be returned to the client.
+ * You can use it to display a message to the user.
+ *
+ *
+ * @param message Error message.
+ */
+export class ActionError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ActionError";
+  }
+}
 
-export class ServerError extends Error {}
+// This function will be called when our actions throw error.
+const handleServerError = (error: unknown): string => {
+  if (error instanceof ActionError) {
+    return error.message;
+  }
 
-export const authenticatedAction = createSafeActionClient({
-  handleReturnedServerError: (error) => {
-    if (error instanceof ServerError) {
-      return {
-        serverError: error.message,
-      };
-    }
+  return "Something went wrong!";
+};
 
-    return {
-      serverError: "An unexpected error occurred",
-    };
-  },
-  middleware: async () => {
-    const session = await getAuthSession();
+export const action = createSafeActionClient({
+  handleServerError: handleServerError,
+});
 
-    const user = session?.user;
-    const userId = user?.id;
+export const authenticatedAction = action.use(async ({ next }) => {
+  const session = await getAuthSession();
 
-    if (!userId) {
-      throw new ServerError("You must be logged in to perform this action");
-    }
+  const userId = session?.user?.id;
 
-    return {
-      userId,
-      user,
-    };
-  },
+  if (!userId) {
+    throw new ActionError("You're not logged in. Please log in to continue.");
+  }
+
+  return next({
+    ctx: {
+      userId: userId,
+      ...session.user,
+    },
+  });
 });

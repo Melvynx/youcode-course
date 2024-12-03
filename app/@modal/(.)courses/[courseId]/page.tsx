@@ -1,19 +1,18 @@
-import { DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { getAuthSession } from '@/lib/auth';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import { Course } from '../../../courses/[courseId]/Course';
-import { CoursePlaceholder } from '../../../courses/[courseId]/CoursePlaceholder';
-import { getCourse } from '../../../courses/[courseId]/course.query';
-import { CourseDialog } from './CourseDialog';
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { getAuthSession } from "@/lib/auth";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { Course } from "../../../courses/[courseId]/Course";
+import { CoursePlaceholder } from "../../../courses/[courseId]/CoursePlaceholder";
+import { getCourse } from "../../../courses/[courseId]/course.query";
+import { CourseDialog } from "./CourseDialog";
 
-export default async function CoursePage({
-  params,
-}: {
-  params: {
+export default async function CoursePage(props: {
+  params: Promise<{
     courseId: string;
-  };
+  }>;
 }) {
+  const params = await props.params;
   if (!params.courseId) {
     notFound();
   }
@@ -40,10 +39,8 @@ const CourseWithData = async ({ courseId }: { courseId: string }) => {
   const session = await getAuthSession();
   const course = await getCourse({
     courseId: courseId,
-    userId: session?.user.id,
+    userId: session?.user?.id,
   });
-
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   if (!course) {
     notFound();
@@ -54,7 +51,7 @@ const CourseWithData = async ({ courseId }: { courseId: string }) => {
       <DialogHeader>
         <DialogTitle>{course.name}</DialogTitle>
       </DialogHeader>
-      <Course course={course} userId={session?.user.id} />
+      <Course course={course} userId={session?.user?.id} />
     </>
   );
 };

@@ -42,18 +42,19 @@ model Session {
 }
 
 model User {
-  id            String         @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?        @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  Course        Course[]
-  LessonOnUser  LessonOnUser[]
-  CourseOnUser  CourseOnUser[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts       Account[]
+  sessions       Session[]
+  ownedCourses   CourseOnUser[]
+  createdCourses Course[]
+  lessons        LessonOnUser[]
 }
 
 model VerificationToken {

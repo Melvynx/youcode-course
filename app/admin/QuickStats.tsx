@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Typography } from '@/components/ui/typography';
-import { getRequiredAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
-import { BookCheck, Presentation, User2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Typography } from "@/components/ui/typography";
+import { getRequiredAuthSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { BookCheck, Presentation, User2 } from "lucide-react";
 
 export type QuickStatsProps = {};
 

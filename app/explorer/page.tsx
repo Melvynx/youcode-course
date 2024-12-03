@@ -10,12 +10,11 @@ import { AlertTriangle } from "lucide-react";
 import { CourseCard } from "../courses/CourseCard";
 import { getCourses } from "../courses/course.query";
 
-export default async function ExplorerPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
+export default async function ExplorerPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const page = Number(searchParams.page ?? 0) ?? 0;
+  const searchParams = await props.searchParams;
+  const page = Number(searchParams.page ?? 0);
   const { courses, totalCourses } = await getCourses({ page });
 
   return (

@@ -149,7 +149,7 @@ export default async function Home() {
       <div
         className="bg-secondary py-8 text-secondary-foreground xl:py-16"
         style={{
-          // @ts-ignore
+          // @ts-expect-error --border is not a valid CSS property but it's valid
           "--border": "240 3.7% 25%",
         }}
       >

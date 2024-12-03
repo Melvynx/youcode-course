@@ -7,7 +7,7 @@ export const CourseCardSkeleton = () => {
   return (
     <Card className="hover:bg-accent">
       <CardHeader className="flex flex-row gap-3 space-y-0">
-        <Avatar className="h-14 w-14 rounded">
+        <Avatar className="size-14 rounded">
           <AvatarFallback>
             <Loader />
           </AvatarFallback>
@@ -15,7 +15,7 @@ export const CourseCardSkeleton = () => {
         <div className="flex flex-col gap-3">
           <Skeleton className="h-8 w-32" />
           <div className="flex flex-row gap-2">
-            <Avatar className="h-8 w-8">
+            <Avatar className="size-8">
               <AvatarFallback>
                 <Loader />
               </AvatarFallback>

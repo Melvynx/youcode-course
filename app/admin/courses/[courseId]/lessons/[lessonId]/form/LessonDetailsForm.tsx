@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,19 +9,20 @@ import {
   FormLabel,
   FormMessage,
   useZodForm,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { lessonActionEditDetails } from '../lesson.action';
-import { LESSON_STATE, LessonDetailSchema } from './lesson.schema';
+} from "@/components/ui/select";
+import { isActionSuccessful } from "@/lib/safe-actions.utils";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { lessonEditDetailsAction } from "../lesson.action";
+import { LESSON_STATE, LessonDetailSchema } from "./lesson.schema";
 
 export type LessonDetailFormProps = {
   defaultValue: LessonDetailSchema & {
@@ -41,19 +42,19 @@ export const LessonDetail = ({ defaultValue }: LessonDetailFormProps) => {
       form={form}
       className="flex flex-col gap-4"
       onSubmit={async (values) => {
-        const { data, serverError } = await lessonActionEditDetails({
+        const result = await lessonEditDetailsAction({
           lessonId: defaultValue.id,
           data: values,
         });
 
-        if (data) {
-          toast.success(data.message);
+        if (isActionSuccessful(result)) {
+          toast.success(result.data.message);
           router.refresh();
           return;
         }
 
-        toast.error('Some error occurred', {
-          description: serverError,
+        toast.error("Some error occurred", {
+          description: result?.serverError ?? "Unknown error",
         });
         return;
       }}
@@ -85,7 +86,7 @@ export const LessonDetail = ({ defaultValue }: LessonDetailFormProps) => {
               </FormControl>
               <SelectContent>
                 {LESSON_STATE.map((state) => (
-                  <SelectItem value={state} className="capitalize ">
+                  <SelectItem key={state} value={state} className="capitalize">
                     {state}
                   </SelectItem>
                 ))}

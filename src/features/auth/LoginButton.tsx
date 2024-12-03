@@ -1,31 +1,17 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Loader } from '@/components/ui/loader';
-import { useMutation } from '@tanstack/react-query';
-import { LogIn } from 'lucide-react';
-import { signIn } from 'next-auth/react';
+import { buttonVariants } from "@/components/ui/button";
+import { LogIn } from "lucide-react";
+import Link from "next/link";
 
 export const LoginButton = () => {
-  const mutation = useMutation({
-    mutationFn: async () => signIn(),
-  });
-
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => {
-        mutation.mutate();
-      }}
-      disabled={mutation.isPending}
+    <Link
+      className={buttonVariants({ size: "sm", variant: "outline" })}
+      href="/api/auth/signin"
     >
-      {mutation.isPending ? (
-        <Loader className="mr-2" size={12} />
-      ) : (
-        <LogIn className="mr-2" size={12} />
-      )}
+      <LogIn className="mr-2" size={12} />
       Login
-    </Button>
+    </Link>
   );
 };
